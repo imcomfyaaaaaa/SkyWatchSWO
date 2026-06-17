@@ -1,0 +1,9 @@
+certifi==2026.6.17
+charset-normalizer==3.4.7
+emoji==2.15.0
+idna==3.18
+pillow==10.2.0
+pilmoji==2.0.5
+python-dotenv==1.0.1
+requests==2.31.0
+urllib3==2.7.0
