@@ -30,7 +30,6 @@ jobs:
           
       - name: Run Auto-Poster
         env:
-          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
           IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: python main.py
