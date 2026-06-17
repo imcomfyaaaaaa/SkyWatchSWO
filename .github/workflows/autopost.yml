@@ -32,4 +32,5 @@ jobs:
         env:
           IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          PUBLIC_IMAGE_BASE_URL: https://raw.githubusercontent.com/imcomfyaaaaaa/SkyWatchSWO/main/output
         run: python main.py
