@@ -6,7 +6,7 @@ from datetime import datetime
 from config.settings import CITIES
 from data.weather_client import get_weather_data
 from graphics.generator import create_weather_image
-from instagram.publisher import upload_carousel
+from instagram.publisher import upload_carousel, upload_stories
 
 STATE_FILE = os.path.join(os.path.dirname(__file__), "data", "active_alerts.json")
 
@@ -112,13 +112,12 @@ def main():
     # PUBLISHING TO INSTAGRAM
     # ---------------------------------------------------------
     for city, filename, caption in alerts_to_publish:
-        print(f"Proceeding to upload independent ALERT post for {city}...")
-        upload_carousel([filename], caption)
+        print(f"Proceeding to upload independent ALERT STORY for {city}...")
+        upload_stories([filename])
 
     if generated_images:
-        caption = "Regional Weather Update for Southwestern Ontario! 🌤️\n\n🤖 This is an automated post.\n#OntarioWeather #SkyWatchSWO #ONstorm #LondonON #WindsorON"
-        print("Proceeding to Instagram upload for Daily Regional Carousel...")
-        upload_carousel(generated_images, caption)
+        print("Proceeding to Instagram upload for Daily Regional Stories...")
+        upload_stories(generated_images)
         print("\nImages generated successfully.")
     else:
         print("No images were generated.")

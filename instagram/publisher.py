@@ -78,3 +78,53 @@ def upload_carousel(image_filenames, caption):
         print(f"Successfully published carousel! IG Media ID: {res_data['id']}")
     else:
         print(f"Error publishing carousel: {res_data}")
+
+def upload_stories(image_filenames):
+    """
+    Uploads a list of images as independent Instagram Stories.
+    """
+    if not IG_ACCOUNT_ID or not ACCESS_TOKEN:
+        print("Error: IG_ACCOUNT_ID or ACCESS_TOKEN not set.")
+        return
+
+    for filename in image_filenames:
+        public_url = f"{PUBLIC_IMAGE_BASE_URL.rstrip('/')}/{filename}"
+        print(f"Creating Story container for: {public_url}")
+        
+        url = f"{GRAPH_URL}/{IG_ACCOUNT_ID}/media"
+        payload = {
+            "image_url": public_url,
+            "media_type": "STORIES",
+            "access_token": ACCESS_TOKEN
+        }
+        
+        response = requests.post(url, data=payload, timeout=10)
+        res_data = response.json()
+        
+        if "id" not in res_data:
+            print(f"Error creating Story container for {filename}: {res_data}")
+            continue
+            
+        creation_id = res_data["id"]
+        
+        # Wait a few seconds for Facebook to process the media
+        time.sleep(5)
+        
+        print(f"Publishing Story...")
+        publish_url = f"{GRAPH_URL}/{IG_ACCOUNT_ID}/media_publish"
+        publish_payload = {
+            "creation_id": creation_id,
+            "access_token": ACCESS_TOKEN
+        }
+        
+        pub_response = requests.post(publish_url, data=publish_payload, timeout=10)
+        pub_data = pub_response.json()
+        
+        if "id" in pub_data:
+            print(f"Successfully published Story! IG Media ID: {pub_data['id']}")
+        else:
+            print(f"Error publishing Story: {pub_data}")
+        
+        # Wait before posting the next story to avoid rate limits
+        time.sleep(3)
+
