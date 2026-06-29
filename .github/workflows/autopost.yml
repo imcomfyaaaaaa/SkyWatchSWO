@@ -2,8 +2,8 @@ name: SkyWatchSWO Auto-Post
 
 on:
   schedule:
-    # Runs every 6 hours (adjust the cron schedule as needed)
-    - cron: '0 */6 * * *'
+    # Runs every 3 hours (adjust the cron schedule as needed)
+    - cron: '0 */3 * * *'
   workflow_dispatch: # Allows manual trigger from the GitHub Actions UI
 
 jobs:

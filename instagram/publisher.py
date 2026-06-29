@@ -36,7 +36,7 @@ def upload_carousel(image_filenames, caption):
             container_ids.append(res_data["id"])
         else:
             print(f"Error creating container for {filename}: {res_data}")
-            return
+            raise Exception(f"Failed to create Carousel Container for {filename}: {res_data}")
             
     # Wait a few seconds for Facebook to process the media
     time.sleep(5)
@@ -56,7 +56,7 @@ def upload_carousel(image_filenames, caption):
     
     if "id" not in res_data:
         print(f"Error creating carousel container: {res_data}")
-        return
+        raise Exception(f"Failed to create Carousel: {res_data}")
         
     carousel_id = res_data["id"]
     
@@ -78,6 +78,7 @@ def upload_carousel(image_filenames, caption):
         print(f"Successfully published carousel! IG Media ID: {res_data['id']}")
     else:
         print(f"Error publishing carousel: {res_data}")
+        raise Exception(f"Failed to publish Carousel: {res_data}")
 
 def upload_stories(image_filenames):
     """
@@ -103,7 +104,7 @@ def upload_stories(image_filenames):
         
         if "id" not in res_data:
             print(f"Error creating Story container for {filename}: {res_data}")
-            continue
+            raise Exception(f"Failed to create Story container for {filename}: {res_data}")
             
         creation_id = res_data["id"]
         
@@ -124,6 +125,7 @@ def upload_stories(image_filenames):
             print(f"Successfully published Story! IG Media ID: {pub_data['id']}")
         else:
             print(f"Error publishing Story: {pub_data}")
+            raise Exception(f"Failed to publish Instagram Story: {pub_data}")
         
         # Wait before posting the next story to avoid rate limits
         time.sleep(3)
