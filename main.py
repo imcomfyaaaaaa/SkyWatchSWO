@@ -103,7 +103,7 @@ def main():
         print("\n[GitHub Actions] Pushing generated images to GitHub to activate public URLs...")
         subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"])
         subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"])
-        subprocess.run(["git", "add", "output/", "data/active_alerts.json"])
+        subprocess.run(["git", "add", "-f", "output/", "data/active_alerts.json"])
         subprocess.run(["git", "commit", "-m", "🤖 Auto-update weather graphics and state [skip ci]"])
         subprocess.run(["git", "push"])
         print("[GitHub Actions] Push complete! Images are now public.\n")
